@@ -1,0 +1,12 @@
+name: 24World-Serca
+version: 1.0
+api-version: 1.13
+authors: [Exyron.XYZ, KinczeK, KamlaX]
+main: xyz.exyron.lifesteal.LifestealPlugin
+depend: [PlaceholderAPI]
+
+commands:
+  hearts:
+    aliases: [lives, heart, life]
+  adminhearts:
+    aliases: [adminhearts, ahearts]
