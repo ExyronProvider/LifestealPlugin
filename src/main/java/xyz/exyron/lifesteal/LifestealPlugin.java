@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.exyron.lifesteal.commands.AdminHeartsCommand;
 import xyz.exyron.lifesteal.commands.HeartsCommand;
+import xyz.exyron.lifesteal.commands.tabcomplete.AdminHeartsTabComplete;
 import xyz.exyron.lifesteal.handlers.PlayerDeathHandler;
 import xyz.exyron.lifesteal.handlers.PlayerJoinHandler;
 
@@ -31,6 +32,7 @@ public final class LifestealPlugin extends JavaPlugin {
 
         Objects.requireNonNull(getCommand("hearts")).setExecutor(new HeartsCommand(this.configuration));
         Objects.requireNonNull(getCommand("adminhearts")).setExecutor(new AdminHeartsCommand(this.configuration));
+        Objects.requireNonNull(getCommand("adminhearts")).setTabCompleter(new AdminHeartsTabComplete());
 
         getServer().getPluginManager().registerEvents(new PlayerJoinHandler(this.configuration), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathHandler(this.configuration), this);
