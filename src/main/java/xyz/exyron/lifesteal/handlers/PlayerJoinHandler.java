@@ -26,7 +26,7 @@ public class PlayerJoinHandler implements Listener {
         Player player = event.getPlayer();
 
         if (!player.hasPlayedBefore()) {
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(configuration.defaultHeartsAmount * 2);
+            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(configuration.getDefaultHeartsAmount() * 2);
             return;
         }
 

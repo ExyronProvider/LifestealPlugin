@@ -39,11 +39,11 @@ public class PluginPlaceholderExpansion extends PlaceholderExpansion {
         if (player == null) return null;
 
         if (params.equalsIgnoreCase("hearts")) {
-            return String.valueOf(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue() / 2);
+            return String.valueOf((byte)Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue() / 2);
         }
 
         if (params.equalsIgnoreCase("heartsformatted")) {
-            return configuration.placeholderFormat.replace("{h}", String.valueOf(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue() / 2));
+            return configuration.getPlaceholderFormat().replace("{h}", String.valueOf((byte)Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue() / 2));
         }
 
         return null;

@@ -24,30 +24,30 @@ public class PlayerDeathHandler implements Listener {
         if (player.getKiller() != null) {
             Player killer = player.getKiller();
 
-            if ((killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2) >= configuration.maximumHearts) {
-                killer.sendMessage(configuration.maximumHeartsMessage);
+            if ((killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2) >= configuration.getMaximumHearts()) {
+                killer.sendMessage(configuration.getMaximumHeartsMessage());
             } else {
-                Objects.requireNonNull(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() + (configuration.heartsGainByKill * 2));
-                killer.sendMessage(configuration.messageWhenPlayerKillsSomeone.replace("@p", player.getName()).replace("@h", String.valueOf(configuration.heartsGainByKill)));
+                Objects.requireNonNull(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(killer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() + (configuration.getHeartsGainByKill() * 2));
+                killer.sendMessage(configuration.getMessageWhenPlayerKillsSomeone().replace("{p}", player.getName()).replace("{h}", String.valueOf(configuration.getHeartsGainByKill())));
             }
 
-            if ((player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2) <= configuration.minimumHearts || player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.heartsLostByDeath * 2) < 1) {
-                player.sendMessage(configuration.minimumHeartsMessage);
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(configuration.defaultHeartsAmount * 2);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), configuration.lessOrEquallyHeartsThanMinimumCommand.replace("@p", player.getName()));
+            if ((player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2) <= configuration.getMinimumHearts() || player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.getHeartsLostByDeath() * 2) < 1) {
+                player.sendMessage(configuration.getMinimumHeartsMessage());
+                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(configuration.getDefaultHeartsAmount() * 2);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), configuration.getLessOrEquallyHeartsThanMinimumCommand().replace("{p}", player.getName()));
             } else {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.heartsLostByDeath * 2));
-                player.sendMessage(configuration.messageWhenPlayerGotKilledByPlayer.replace("@p", killer.getName()).replace("@h", String.valueOf(configuration.heartsLostByDeath)));
+                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.getHeartsLostByDeath() * 2));
+                player.sendMessage(configuration.getMessageWhenPlayerGotKilledByPlayer().replace("{p}", killer.getName()).replace("{h}", String.valueOf(configuration.getHeartsLostByDeath())));
             }
 
-        } else if (configuration.loseHeartsWhatever) {
-            if ((player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2) <= configuration.minimumHearts || player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.heartsLostByDeath * 2) < 1) {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(configuration.defaultHeartsAmount * 2);
-                player.sendMessage(configuration.minimumHeartsMessage);
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), configuration.lessOrEquallyHeartsThanMinimumCommand.replace("@p", player.getName()));
+        } else if (configuration.isLoseHeartsWhatever()) {
+            if ((player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2) <= configuration.getMinimumHearts() || player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.getHeartsLostByDeath() * 2) < 1) {
+                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(configuration.getDefaultHeartsAmount() * 2);
+                player.sendMessage(configuration.getMinimumHeartsMessage());
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), configuration.getLessOrEquallyHeartsThanMinimumCommand().replace("{p}", player.getName()));
             } else {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.heartsLostByDeath * 2));
-                player.sendMessage(configuration.messageWhenPlayerGotKilledByWorld.replace("@h", String.valueOf(configuration.heartsLostByDeath)));
+                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() - (configuration.getHeartsLostByDeath() * 2));
+                player.sendMessage(configuration.getMessageWhenPlayerGotKilledByWorld().replace("{h}", String.valueOf(configuration.getHeartsLostByDeath())));
             }
         }
     }

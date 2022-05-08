@@ -18,7 +18,7 @@ public class HeartsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            player.sendMessage(configuration.heartsCommandMessage.replace("@h", String.valueOf((int) player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2)));
+            player.sendMessage(configuration.getHeartsCommandMessage().replace("{h}", String.valueOf((int) player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() / 2)));
             return true;
         }
 
